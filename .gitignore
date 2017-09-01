@@ -31,3 +31,7 @@ bower.json
 
 # Ignore pow environment settings
 .powenv
+/node_modules
+/public/packs
+/public/packs-test
+/node_modules

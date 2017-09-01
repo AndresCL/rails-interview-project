@@ -39,7 +39,13 @@ GEM
       minitest (~> 5.1)
       tzinfo (~> 1.1)
     arel (8.0.0)
+    autoprefixer-rails (7.1.3)
+      execjs
     bindex (0.5.0)
+    bootstrap (4.0.0.beta)
+      autoprefixer-rails (>= 6.0.3)
+      popper_js (~> 1.11.1)
+      sass (>= 3.4.19)
     builder (3.2.3)
     byebug (9.0.6)
     coffee-rails (4.2.2)
@@ -86,8 +92,11 @@ GEM
     nio4r (2.1.0)
     nokogiri (1.8.0)
       mini_portile2 (~> 2.2.0)
+    popper_js (1.11.1)
     puma (3.8.2)
     rack (2.0.3)
+    rack-proxy (0.6.2)
+      rack
     rack-test (0.6.3)
       rack (>= 1.0)
     rails (5.1.3)
@@ -159,6 +168,10 @@ GEM
       activemodel (>= 5.0)
       bindex (>= 0.4.0)
       railties (>= 5.0)
+    webpacker (3.0.0)
+      activesupport (>= 4.2)
+      rack-proxy (>= 0.6.1)
+      railties (>= 4.2)
     websocket-driver (0.6.5)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.2)
@@ -167,6 +180,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  bootstrap (~> 4.0.0.beta)
   byebug
   coffee-rails (~> 4.2.2)
   ffaker
@@ -183,6 +197,7 @@ DEPENDENCIES
   turbolinks
   uglifier (>= 1.3.0)
   web-console (~> 3.0)
+  webpacker
 
 BUNDLED WITH
-   1.15.3
+   1.15.4

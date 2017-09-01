@@ -1,5 +1,7 @@
 class Tenant < ApplicationRecord
 
+  has_many :tenantsrequests
+
   before_create :generate_api_key
   
   private

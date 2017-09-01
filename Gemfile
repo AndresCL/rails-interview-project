@@ -49,3 +49,5 @@ end
 
 gem 'markdown-rails'
 gem 'ffaker'
+gem 'webpacker'
+gem 'bootstrap', '~> 4.0.0.beta'
