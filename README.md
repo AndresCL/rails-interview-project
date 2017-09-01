@@ -15,7 +15,7 @@ Install Webpacker to work with VueJS2
 
 `rails s`
 
-Now the project should be running
+Now the project should be running (It will take some time the first time due to compiling)
 
 `Open browser at: http://localhost:3000`
 
@@ -23,9 +23,10 @@ Now the project should be running
 
 Grab a valid api_key from tenants db and use it as tenantkey like this:
 
-`http://localhost:3000/api/questions?tenantkey=c861d12c8b34c7376fbf9b2bd852e950&qp=[{"key":"title","value":"a","operator":"LIKE"}]`
+`http://localhost:3000/api/questions?tenantkey=c861d12c8b34c7376fbf9b2bd852e950&q=[{"key":"id","value":2, "operator":"="},{"key":"title","value":"a","operator":"LIKE"}]`
 
 It should show public questions and it answers filtered by query parameter.
+If request counter is greater than 100 per Tenant, throttle to 1 request per 10 seconds by throwing 503 Service Unavailable
 
 # Migrations
 
@@ -37,7 +38,7 @@ It should show public questions and it answers filtered by query parameter.
 
 The Query Parameter is defined by variable "qp" and it can be array of values like this:
 
-`qp=[{"key":"id","value":2,"operator":"="},{"key":"title","value":"eth","operator":"LIKE"}]`
+`q=[{"key":"id","value":2,"operator":"="},{"key":"title","value":"eth","operator":"LIKE"}]`
 
 # Tests
 

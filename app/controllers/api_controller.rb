@@ -4,7 +4,9 @@ class ApiController < BaseApiController
   def questions
     
     # Generic query param
-    @query_param = JSON.parse(params[:qp])
+    if params.has_key?(:q)
+      @query_param = JSON.parse(params[:q])
+    end
 
     if @query_param
 

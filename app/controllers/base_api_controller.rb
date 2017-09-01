@@ -21,19 +21,40 @@ class BaseApiController < ApplicationController
       # If Tenant API Key exists
       elsif Tenant.exists?(api_key: params[:tenantkey])
 
-        # Getting Tenant
+        # Getting Tenant by API Key
         tenant = Tenant.where(['tenants.api_key = ?', params[:tenantkey]]).first
 
-        # Create a new Tenantsrequest
-        trequest = Tenantsrequest.new(:tenant_id => tenant.id)
-        trequest.save
+        ######################
+        # Throttle Middleware
+        ######################
 
-        # count teantsrequests per tenant api key
-        @t = Tenant.left_outer_joins(:tenantsrequests)
-          .distinct.select('tenants.id, COUNT(tenantsrequests.id) AS tcounter')
-          .where(['tenants.api_key = ?', params[:tenantkey]])
-          .group('tenants.id').first
+        # Total requests made for current date and tenant (count_requests: defined in model)
+        ttlrequests = tenant.count_requests
+        
+        # Get last tenant request
+        tenantrequest = 
+          Tenantsrequest.where(['tenant_id = ?', tenant.id])
+            .order('created_at desc').first
+
+        # If request counter is greater than 100, throttle to 1 request per 10 seconds.
+        if ttlrequests > 100
+          
+          # Time now UTC lower than last request saved + 10 seconds
+          if Time.current.utc <= (tenantrequest.created_at + 10.seconds)
+            head(503) # return Service Unavailable
+          else
+            # Create a new Tenantsrequest
+            trequest = Tenantsrequest.new(:tenant_id => tenant.id)
+            trequest.save
+          end
+
+        else
+          # Create a new Tenantsrequest
+          trequest = Tenantsrequest.new(:tenant_id => tenant.id)
+          trequest.save
+        end
 
       end
     end
+
   end
