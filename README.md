@@ -1,6 +1,6 @@
 # Screenshot Demo
 
-<img src="public/img/cs_ss_png">
+<img src="https://raw.githubusercontent.com/AndresCL/rails-interview-project/master/public/img/cs_ss.png">
 
 # Instructions
 
