@@ -6,4 +6,6 @@ Rails.application.routes.draw do
 
   get 'api/all'
   get 'api/questions'
+  get 'api/stats'
+
 end
