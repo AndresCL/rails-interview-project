@@ -1,6 +1,7 @@
 class BaseApiController < ApplicationController
   
-  before_action :check_tenant_api_key
+  # Defining a before action only for api/questions
+  before_action :check_tenant_api_key, only: [:questions]
 
   private
 

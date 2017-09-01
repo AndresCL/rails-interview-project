@@ -9,7 +9,7 @@
       
       <div class="card">
         <div class="card-header">
-          Casual Question App
+          Casual Q&A App
         </div>
         <div class="card-block">
           
@@ -55,11 +55,22 @@ export default {
     }
   },
   // Method mount is called after page loads 
-  mount: function() {
+  mounted: function() {
     
-    $.getJSON( "ajax/test.json", function( data ) {
+    var self = this;
+
+    // Reading our own api
+    $.getJSON('api/stats', function( data ) {
       
-      
+      // If data is present
+      if(data != null) {
+        
+        // Setting value to our component variables
+        self.totalUsers = data.u;
+        self.totalQuestions = data.q;
+        self.totalAnswers = data.a;
+        self.totalApiRequests = data.r;
+      }
     });
   }
 }
