@@ -1,3 +1,7 @@
+# Screenshot Demo
+
+<img src="public/img/cs_ss_png">
+
 # Instructions
 
 `bundle install`
