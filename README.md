@@ -7,6 +7,7 @@
 `bundle install`
 
 Install Webpacker to work with VueJS2
+(**** ATTENTION: DO NOT OVERWRITE WHEN ASKED ****)
 
 `rails webpacker:install && rails webpacker:install:vue`
 
