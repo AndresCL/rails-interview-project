@@ -9,9 +9,9 @@ class ApiController < BaseApiController
     if @query_param
 
       # Initializing
-      queryKeys = ['private']
-      queryVals = ['f']
-      querystring = '' 
+      queryKeys = []
+      queryVals = []
+      querystring = 'private = \'f\'' 
 
       # For each query params
       @query_param.each do |item|
@@ -21,26 +21,31 @@ class ApiController < BaseApiController
         value = item['value']
 
         if operator == 'LIKE'
-          value = '\'%' + value + '%\''
+          value = '\'%' + value.to_s + '%\''
+        elsif operator == '='
+          value = '\'' + value.to_s + '\''
+        else
+          value = '\'' + value.to_s + '\''
         end
-
-        # Building query string
-        querystring = key.to_s + ' ' + operator + ' ' + value.to_s
+        
+        # Building query string (only if it is different than private, we don't want to show that questions)
+        if key != 'private'
+          querystring.concat ' and ' + key.to_s + ' ' + operator + ' ' + value.to_s
+        end
         
       end
 
+      Rails.logger.info 'pqs: ' + querystring
       # Get all public questions and include it answers filtering by query string
-      # Sample: qp=[{"key":"id","value":1,%20"operator":"="},{"key":"title","value":"VHaS","operator":"LIKE"}]
+      # Sample: qp=[{"key":"id","value":2,"operator":"="},{"key":"title","value":"eth","operator":"LIKE"}]
       @questions = Question.all.where(querystring)
-
+      
     else
       # Get all public questions and include it answers
       @questions = 
         Question.all
           .where(['questions.private = "f"'])
     end
-    
-    Rails.logger.info @questions.empty?.to_s
 
     # Did we find any records
     if @questions.empty?
@@ -50,8 +55,6 @@ class ApiController < BaseApiController
       # Rendering results as JSON
       render json: @questions.to_json(:include => :answers) 
     end
-    
-    
 
   end
 

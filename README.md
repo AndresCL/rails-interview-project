@@ -2,12 +2,14 @@
 
 `bundle install`
 
-Webpacker to work with VueJS2
+Install Webpacker to work with VueJS2
+
 `rails webpacker:install && rails webpacker:install:vue`
 
 `bundle exec rake db:setup`
 
-Migration
+Run Migrations
+
 `bin/rails db:migrate VERSION=20170831190718`
 
 `rails s`
@@ -16,7 +18,7 @@ Migration
 
 The Query Parameter is defined by variable "qp" and it can be array of values like this:
 
-`qp=[{"key":"id","value":1,%20"operator":"="},{"key":"title","value":"VHaS","operator":"LIKE"}]`
+`qp=[{"key":"id","value":2,"operator":"="},{"key":"title","value":"eth","operator":"LIKE"}]`
 
 # Tests
 
