@@ -13,11 +13,25 @@ Install Webpacker to work with VueJS2
 
 `bundle exec rake db:setup`
 
-Run Migrations
+`rails s`
+
+Now the project should be running
+
+`Open browser at: http://localhost:3000`
+
+# Try API via GET
+
+Grab a valid api_key from tenants db and use it as tenantkey like this:
+
+`http://localhost:3000/api/questions?tenantkey=c861d12c8b34c7376fbf9b2bd852e950&qp=[{"key":"title","value":"a","operator":"LIKE"}]`
+
+It should show public questions and it answers filtered by query parameter.
+
+# Migrations
+
+* Run Migrations (If needed)
 
 `bin/rails db:migrate VERSION=20170831190718`
-
-`rails s`
 
 # Query Parameter
 
