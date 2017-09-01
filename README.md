@@ -1,3 +1,30 @@
+# Instructions
+
+`bundle install`
+
+Webpacker to work with VueJS2
+`rails webpacker:install && rails webpacker:install:vue`
+
+`bundle exec rake db:setup`
+
+Migration
+`bin/rails db:migrate VERSION=20170831190718`
+
+`rails s`
+
+# Query Parameter
+
+The Query Parameter is defined by variable "qp" and it can be array of values like this:
+
+`qp=[{"key":"id","value":1,%20"operator":"="},{"key":"title","value":"VHaS","operator":"LIKE"}]`
+
+# Tests
+
+To Test Tenant API Key
+`bin/rails test test/controllers/api_controller_test.rb:9`
+`bin/rails test test/controllers/api_controller_test.rb:15`
+
+
 # Rails Engineer Candidate Interview Project
 
 Thanks for taking the time to complete this exercise. We're excited that you're considering joining our amazing team.

@@ -2,11 +2,57 @@ class ApiController < BaseApiController
 
   # questions: Shows all questions, not including private ones.
   def questions
-    # Get all public questions and include it answers
-    @questions = Question.all.where(['questions.private = "f"']).to_json(:include => :answers) 
     
-    # Rendering results as JSON
-    render json: @questions
+    # Generic query param
+    @query_param = JSON.parse(params[:qp])
+
+    if @query_param
+
+      # Initializing
+      queryKeys = ['private']
+      queryVals = ['f']
+      querystring = '' 
+
+      # For each query params
+      @query_param.each do |item|
+        
+        key = item['key']
+        operator = item['operator']
+        value = item['value']
+
+        if operator == 'LIKE'
+          value = '\'%' + value + '%\''
+        end
+
+        # Building query string
+        querystring = key.to_s + ' ' + operator + ' ' + value.to_s
+        
+      end
+
+      # Get all public questions and include it answers filtering by query string
+      # Sample: qp=[{"key":"id","value":1,%20"operator":"="},{"key":"title","value":"VHaS","operator":"LIKE"}]
+      @questions = Question.all.where(querystring)
+
+    else
+      # Get all public questions and include it answers
+      @questions = 
+        Question.all
+          .where(['questions.private = "f"'])
+    end
+    
+    Rails.logger.info @questions.empty?.to_s
+
+    # Did we find any records
+    if @questions.empty?
+      # Throw 204 HTTP Status Code: No Content
+      head(204)
+    else
+      # Rendering results as JSON
+      render json: @questions.to_json(:include => :answers) 
+    end
+    
+    
+
   end
 
   # stats: Return app stats
